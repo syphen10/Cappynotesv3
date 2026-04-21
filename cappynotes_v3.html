@@ -1,0 +1,432 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff;--bg2:#f2f2f7;--bg3:#e5e5ea;--text:#1c1c1e;--text2:#3c3c43;--text3:#8e8e93;--border:rgba(60,60,67,.15);--accent:#007aff;--card:#fff;--green:#34c759}
+[data-dark=true]{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--text:#fff;--text2:rgba(235,235,245,.65);--text3:rgba(235,235,245,.35);--border:rgba(255,255,255,.12);--card:#1c1c1e}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);color:var(--text);max-width:390px;margin:0 auto;min-height:600px}
+.scr{display:none;min-height:600px;flex-direction:column;padding:0 20px;animation:fi .25s ease}
+.scr.on{display:flex}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:26px;font-weight:500;color:var(--text)}h2{font-size:20px;font-weight:500;color:var(--text)}h3{font-size:17px;font-weight:500;color:var(--text)}
+p{font-size:15px;line-height:1.65;color:var(--text2)}
+.btn{padding:14px;border-radius:14px;font-size:16px;font-weight:500;border:none;cursor:pointer;width:100%;font-family:inherit;transition:.15s;color:var(--text)}
+.btn:active{opacity:.8;transform:scale(.98)}.bb{background:var(--accent);color:#fff!important}.bg2{background:var(--bg2)}
+.si{background:var(--bg2);border:none;border-radius:12px;padding:10px 14px;font-size:15px;color:var(--text);width:100%;outline:none;font-family:inherit}
+.si::placeholder{color:var(--text3)}
+.cpr{display:flex;gap:8px;overflow-x:auto;padding:2px 0;scrollbar-width:none}.cpr::-webkit-scrollbar{display:none}
+.cp{padding:7px 16px;border-radius:20px;font-size:13px;font-weight:500;white-space:nowrap;border:none;cursor:pointer;background:var(--bg2);color:var(--text);font-family:inherit;transition:.15s}
+.cp.on{background:var(--accent);color:#fff}
+.nc{border-radius:16px;padding:14px 16px;cursor:pointer;position:relative;margin-bottom:9px;transition:transform .1s;overflow:hidden;border:.5px solid var(--border)}
+.nc:active{transform:scale(.98)}
+.nt{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;color:var(--text)}
+.nb{font-size:13px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.55;color:var(--text2)}
+.nm{font-size:11px;color:var(--text3);margin-top:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.nbg{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--bg3);color:var(--text2)}
+.fab{position:fixed;bottom:28px;right:20px;width:54px;height:54px;border-radius:50%;background:var(--accent);color:#fff;font-size:30px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;transition:.15s}
+.fab:active{transform:scale(.88)}
+.mfab{position:fixed;bottom:28px;left:20px;width:54px;height:54px;border-radius:50%;background:var(--card);border:.5px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:100;overflow:hidden;padding:3px}
+.etop{display:flex;align-items:center;gap:10px;padding:16px 0 14px;border-bottom:.5px solid var(--border)}
+.etinp{flex:1;font-size:22px;font-weight:500;border:none;outline:none;color:var(--text);background:transparent;font-family:inherit}
+.etinp::placeholder{color:var(--text3)}
+.ebinp{width:100%;border:none;outline:none;resize:none;font-size:17px;line-height:1.9;color:var(--text);background:transparent;min-height:260px;font-family:inherit;margin-top:16px}
+.ebinp::placeholder{color:var(--text3)}
+.emeta{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:.5px solid var(--border)}
+.cdots{display:flex;gap:8px}.cd{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}.cd.on{border-color:var(--text);transform:scale(1.15)}
+.mcs{display:flex;gap:10px}.mc{flex:1;background:var(--bg2);border-radius:18px;padding:20px 14px;cursor:pointer;border:2px solid transparent;text-align:center;transition:.2s}.mc.on{border-color:var(--accent)}
+.mct{font-size:15px;font-weight:500;color:var(--text);margin-top:8px}.mcs2{font-size:12px;color:var(--text3);margin-top:3px}
+.pds{display:flex;gap:6px;justify-content:center}.pd{width:6px;height:6px;border-radius:50%;background:var(--bg3);transition:.3s}.pd.on{width:20px;border-radius:3px;background:var(--accent)}
+.slbl{font-size:11px;color:var(--text3);letter-spacing:.6px;margin-bottom:6px;padding:0 4px;text-transform:uppercase}
+.srow{background:var(--card);border:.5px solid var(--border);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1px;cursor:pointer}
+.srow:first-of-type{border-radius:12px 12px 2px 2px}.srow:last-of-type{border-radius:2px 2px 12px 12px}.srow:only-of-type{border-radius:12px}
+.srt{font-size:15px;color:var(--text)}.srs{font-size:13px;color:var(--text3)}
+.tog{width:44px;height:26px;background:var(--bg3);border-radius:13px;position:relative;border:none;cursor:pointer;transition:.2s;flex-shrink:0}
+.tog.on{background:var(--green)}.tog::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}.tog.on::after{transform:translateX(18px)}
+.supb{background:var(--bg2);border:.5px solid var(--border);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;width:100%;font-family:inherit;transition:.2s}
+.toast{position:fixed;bottom:92px;left:16px;right:16px;background:var(--card);border:.5px solid var(--border);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;z-index:300;transition:.4s cubic-bezier(.34,1.56,.64,1);transform:translateY(180px);opacity:0;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.tt{font-size:14px;font-weight:500;color:var(--text)}.tm{font-size:13px;color:var(--text2);margin-top:2px}
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:flex-end;justify-content:center}
+.ovl.on{display:flex}
+.ovlsh{background:var(--bg);border-radius:24px 24px 0 0;padding:24px 20px 36px;width:100%;max-width:390px;max-height:80vh;overflow-y:auto}
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.scard{background:var(--bg2);border-radius:14px;padding:14px 10px;cursor:pointer;border:2px solid transparent;text-align:center;transition:.2s}
+.scard.on{border-color:var(--accent)}.scard:active{transform:scale(.96)}
+.snm{font-size:13px;font-weight:500;color:var(--text);margin-top:8px}.sds{font-size:11px;color:var(--text3);margin-top:2px}
+.aa{border:1px dashed var(--border);border-radius:11px;padding:14px;text-align:center;cursor:pointer;color:var(--text3);font-size:13px;margin-top:8px}
+.ap{display:flex;align-items:center;gap:9px;background:var(--bg2);border-radius:9px;padding:9px 11px;margin-top:6px;font-size:13px;color:var(--text)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0 10px}
+.ni{background:none;border:none;cursor:pointer;color:var(--text2);font-size:19px;line-height:1;padding:4px;font-family:inherit}
+#ld{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:600px;gap:16px;background:var(--bg)}
+.ldt{font-size:13px;color:var(--text3)}
+</style>
+
+<div id="app" data-dark="false">
+
+<div id="ld"><div id="ld-m"></div><div class="ldt">Loading CappyNotes...</div></div>
+
+<div class="scr" id="s-mode">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:32px 0">
+    <div style="text-align:center">
+      <div id="mochi-mode" style="display:flex;justify-content:center;margin-bottom:20px"></div>
+      <h1 style="margin-bottom:10px">Hey, I'm Mochi!</h1>
+      <p>Your chill note-taking capybara. First things first — how do you like your apps?</p>
+    </div>
+    <div class="mcs">
+      <div class="mc on" id="mc-l" onclick="selMode('light')"><div style="font-size:28px">&#9728;</div><div class="mct">Light</div><div class="mcs2">Bright & clean</div></div>
+      <div class="mc" id="mc-d" onclick="selMode('dark')"><div style="font-size:28px">&#9790;</div><div class="mct">Dark</div><div class="mcs2">Easy on eyes</div></div>
+    </div>
+    <button class="btn bb" onclick="startOnboard()">Let's go</button>
+  </div>
+</div>
+
+<div class="scr" id="s-onboard">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:40px 0 28px">
+    <div id="ob-c" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center"></div>
+    <div><div class="pds" id="ob-dots" style="margin-bottom:22px"></div><button class="btn bb" id="ob-btn" onclick="nextOb()">Next</button></div>
+  </div>
+</div>
+
+<div class="scr" id="s-main">
+  <div class="nav">
+    <h2>CappyNotes</h2>
+    <div style="display:flex;gap:4px"><button class="ni" onclick="openSupport()">&#9825;</button><button class="ni" onclick="goSettings()">&#9881;</button></div>
+  </div>
+  <input class="si" placeholder="Search notes..." oninput="doSearch(this.value)" style="margin-bottom:14px">
+  <div class="cpr" id="cats" style="margin-bottom:14px"></div>
+  <div id="notes-list" style="flex:1;overflow-y:auto;padding-bottom:90px"></div>
+  <button class="fab" onclick="openEditor(null)">+</button>
+  <button class="mfab" id="mfab" onclick="openSkins()"></button>
+</div>
+
+<div class="scr" id="s-editor">
+  <div class="etop">
+    <button onclick="saveAndBack()" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:15px;font-weight:500;font-family:inherit;padding:0;white-space:nowrap">&#8592; Done</button>
+    <input class="etinp" id="etitle" placeholder="Title">
+    <button id="epin" onclick="togglePin()" style="background:none;border:none;cursor:pointer;font-size:18px;padding:0;opacity:.3">&#128204;</button>
+    <div id="e-mochi" style="flex-shrink:0;margin-left:4px"></div>
+  </div>
+  <textarea class="ebinp" id="ebody" placeholder="What's on your mind? No limits."></textarea>
+  <div class="emeta">
+    <div class="cdots" id="cdots"></div>
+    <select id="ecat" style="background:var(--bg2);border:none;border-radius:9px;padding:6px 10px;font-size:13px;color:var(--text);outline:none;font-family:inherit;margin-left:auto">
+      <option>Work</option><option>Personal</option><option>Ideas</option><option>Random</option>
+    </select>
+  </div>
+  <div style="padding:14px 0;border-top:.5px solid var(--border)">
+    <div style="font-size:13px;color:var(--text3);margin-bottom:8px">Reminder</div>
+    <input type="datetime-local" id="erem" style="background:var(--bg2);border:none;border-radius:9px;padding:8px 12px;font-size:13px;color:var(--text);outline:none;font-family:inherit;width:100%">
+  </div>
+  <div style="padding:14px 0 30px;border-top:.5px solid var(--border)">
+    <div style="font-size:13px;color:var(--text3);margin-bottom:6px">Attachments</div>
+    <div id="att-list"></div>
+    <div class="aa" onclick="document.getElementById('fin').click()">+ Add image or document</div>
+    <input type="file" id="fin" style="display:none" accept="image/*,.pdf,.doc,.docx" onchange="addAtt(this)">
+  </div>
+</div>
+
+<div class="scr" id="s-settings">
+  <div class="nav">
+    <button onclick="goMain()" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:15px;font-weight:500;font-family:inherit;padding:0">&#8592; Back</button>
+    <h3>Settings</h3>
+    <div style="width:60px"></div>
+  </div>
+  <div id="settings-body" style="overflow-y:auto;padding-bottom:40px"></div>
+</div>
+
+<div class="ovl" id="sup-ovl" onclick="closeSup(event)">
+  <div class="ovlsh">
+    <div style="display:flex;justify-content:center;margin-bottom:18px" id="sup-m"></div>
+    <h2 style="text-align:center;margin-bottom:8px">Support the Capybara</h2>
+    <p style="text-align:center;margin-bottom:24px">Mochi works hard keeping your notes cozy. Toss him a snack?</p>
+    <button class="btn bb" style="margin-bottom:10px" onclick="closeSup()">Buy Mochi a snack</button>
+    <button class="btn bg2" onclick="closeSup()">Maybe later</button>
+  </div>
+</div>
+
+<div class="ovl" id="skin-ovl" onclick="closeSkins(event)">
+  <div class="ovlsh">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <h3>Mochi Outfits</h3>
+      <button onclick="closeSkins()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:24px;line-height:1;padding:0">&#215;</button>
+    </div>
+    <p style="font-size:13px">All outfits included for free.</p>
+    <div class="sgrid" id="sgrid"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <div id="t-m" style="flex-shrink:0"></div>
+  <div style="flex:1"><div class="tt" id="t-title"></div><div class="tm" id="t-msg"></div></div>
+  <button onclick="hideToast()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:22px;line-height:1;padding:0">&#215;</button>
+</div>
+
+</div>
+
+<script>
+const COLORS=[{v:'#FFFFFF'},{v:'#FFF9C4'},{v:'#E3F2FD'},{v:'#E8F5E9'},{v:'#F3E5F5'},{v:'#FFE4E8'},{v:'#FFF3E0'}];
+const SKINS=[
+  {id:'default',name:'Classic',desc:'Natural & chill'},
+  {id:'corpo',name:'Corpo Mochi',desc:'Suit & tie'},
+  {id:'chilled',name:'Chilled Mochi',desc:'Hoodie & headphones'},
+  {id:'chef',name:'Chef Mochi',desc:'Hat & apron'},
+  {id:'sleepy',name:'Sleepy Mochi',desc:'PJs & nightcap'},
+  {id:'gym',name:'Gym Mochi',desc:'Sweatband ready'},
+  {id:'royal',name:'Royal Mochi',desc:'Crown & cape'},
+  {id:'hacker',name:'Hacker Mochi',desc:'Hood & terminal'},
+  {id:'tourist',name:'Tourist Mochi',desc:'Hat & camera'},
+  {id:'ninja',name:'Ninja Mochi',desc:'Mask & silence'},
+];
+const OB=[
+  {title:'Your notes, your way',text:'Write anything — no character limits, no clutter. Just you and your thoughts.'},
+  {title:'Stay organized',text:'Sort into Work, Personal, Ideas, or Random. Pin the important ones and Mochi sits on them.'},
+  {title:"Mochi's got you",text:"Set a reminder on any note and I'll pop up when it's time. You can count on me!"},
+];
+const S={dark:false,obStep:0,notes:[],cats:['All','Work','Personal','Ideas','Random'],activeCat:'All',search:'',editing:null,editPin:false,editColor:'#FFFFFF',skin:'default',nextId:1,_ta:[],_tt:null};
+const DN=[
+  {id:1,title:'Welcome to CappyNotes!',body:"Hi! I'm Mochi — tap any note to edit, swipe left to delete, and pin the important ones.\n\nNo character limits here. Write as much as you want.",color:'#FFF9C4',cat:'Personal',pinned:true,reminder:null,atts:[],created:new Date().toISOString()},
+  {id:2,title:'Ideas this week',body:'- Get things done\n- Actually go to the gym\n- Buy groceries',color:'#E3F2FD',cat:'Work',pinned:false,reminder:null,atts:[],created:new Date().toISOString()},
+];
+
+function $(i){return document.getElementById(i)}
+function setDark(d){S.dark=d;$('app').setAttribute('data-dark',d?'true':'false')}
+function goTo(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));$(id).classList.add('on')}
+function fmt(d){if(!d)return'';const diff=new Date()-new Date(d);if(diff<60000)return'just now';if(diff<3600000)return Math.floor(diff/60000)+'m ago';if(diff<86400000)return Math.floor(diff/3600000)+'h ago';return new Date(d).toLocaleDateString()}
+function fdt(d){if(!d)return'';return new Date(d).toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+
+function mochiUpper(skin,sz,mood){
+  skin=skin||'default';sz=sz||80;mood=mood||'normal';
+  const vw=100,vh=130,sh=Math.round(sz*vh/vw);
+  const fur='#C4956A',fd='#A07040',fl='#D8AA7C',ie='#E8B4A0',mz='#9A6244',bl='#F4A0A0';
+  const mth=mood==='happy'
+    ?`<path d="M43 62 Q50 70 57 62" stroke="#7a4a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>`
+    :mood==='worried'
+    ?`<path d="M44 67 Q50 61 56 67" stroke="#7a4a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>`
+    :`<path d="M44 65 Q50 71 56 65" stroke="#7a4a2a" stroke-width="1.6" fill="none" stroke-linecap="round"/>`;
+  const sp=mood==='happy'
+    ?`<circle cx="20" cy="28" r="2.5" fill="#FFD700" opacity=".9"/><circle cx="80" cy="28" r="2.5" fill="#FFD700" opacity=".9"/>`
+    :'';
+  const outs={
+    default:'',
+    corpo:`<path d="M36 122 L42 90 L50 96 L58 90 L64 122" fill="white" stroke="#ccc" stroke-width=".5"/>
+      <path d="M50 96 L47 110 L50 120 L53 110 Z" fill="#c0392b"/>`,
+    chilled:`<path d="M21 52 Q50 10 79 52" fill="none" stroke="#2a2a2a" stroke-width="5.5" stroke-linecap="round"/>
+      <rect x="13" y="43" width="15" height="19" rx="7" fill="#3a3a3a"/>
+      <rect x="14" y="44" width="13" height="17" rx="6" fill="#888"/>
+      <rect x="72" y="43" width="15" height="19" rx="7" fill="#3a3a3a"/>
+      <rect x="73" y="44" width="13" height="17" rx="6" fill="#888"/>`,
+    chef:`<ellipse cx="50" cy="16" rx="16" ry="22" fill="white" stroke="#e0e0e0" stroke-width=".5"/>
+      <rect x="31" y="28" width="38" height="10" rx="5" fill="white" stroke="#e0e0e0" stroke-width=".5"/>`,
+    sleepy:`<path d="M28 38 Q44 8 70 22 Q76 36 68 42 Q58 28 48 28 Q40 28 30 44 Z" fill="#89c4e1"/>
+      <path d="M68 42 Q82 50 74 62" fill="none" stroke="#89c4e1" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="76" cy="64" r="4.5" fill="#89c4e1"/>`,
+    gym:`<rect x="25" y="28" width="50" height="12" rx="6" fill="#FFD700"/>
+      <rect x="25" y="28" width="50" height="5" rx="4" fill="#FFE97A" opacity=".5"/>`,
+    royal:`<polygon points="50,8 44,26 31,17 37,34 63,34 69,17 56,26" fill="#FFD700" stroke="#d4a000" stroke-width=".5"/>
+      <circle cx="50" cy="9" r="4.5" fill="#e74c3c"/>
+      <circle cx="33" cy="18" r="3.5" fill="#3498db"/>
+      <circle cx="67" cy="18" r="3.5" fill="#9b59b6"/>
+      <path d="M18 108 Q50 96 82 108 L82 122 Q50 128 18 122 Z" fill="#6b1a8a" opacity=".78"/>
+      <path d="M18 108 Q50 96 82 108" fill="none" stroke="#FFD700" stroke-width="2"/>`,
+    hacker:`<path d="M22 34 Q24 14 50 12 Q76 14 78 34 Q82 52 78 68 Q68 74 50 76 Q32 74 22 68 Q18 52 22 34Z" fill="#0d1117" opacity=".82"/>
+      <circle cx="40" cy="46" r="7.5" fill="#00e676" opacity=".22"/>
+      <circle cx="60" cy="46" r="7.5" fill="#00e676" opacity=".22"/>`,
+    tourist:`<ellipse cx="50" cy="24" rx="34" ry="8.5" fill="#D4A843" stroke="#A88228" stroke-width=".5"/>
+      <ellipse cx="50" cy="18" rx="20" ry="14" fill="#E2B84E" stroke="#A88228" stroke-width=".5"/>
+      <rect x="64" y="92" width="12" height="10" rx="3" fill="#3a3a3a"/>
+      <rect x="65" y="93" width="10" height="8" rx="2.5" fill="#666"/>
+      <circle cx="70" cy="97" r="2.5" fill="#999"/>`,
+    ninja:`<path d="M22 54 Q28 47 50 45 Q72 47 78 54 L78 71 Q72 78 50 80 Q28 78 22 71 Z" fill="#111"/>`,
+  };
+  return`<svg viewBox="0 0 ${vw} ${vh}" width="${sz}" height="${sh}" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="124" rx="24" ry="5" fill="rgba(0,0,0,.1)"/>
+    <ellipse cx="20" cy="103" rx="9" ry="16" transform="rotate(-15 20 103)" fill="${fur}"/>
+    <circle cx="13" cy="117" r="8" fill="${fur}"/>
+    <ellipse cx="80" cy="103" rx="9" ry="16" transform="rotate(15 80 103)" fill="${fur}"/>
+    <circle cx="87" cy="117" r="8" fill="${fur}"/>
+    <ellipse cx="50" cy="108" rx="28" ry="17" fill="${fur}"/>
+    <ellipse cx="52" cy="118" rx="18" ry="5.5" fill="${fd}" opacity=".2"/>
+    <path d="M43 80 Q44 70 50 68 Q56 70 57 80 L57 90 Q56 94 50 95 Q44 94 43 90 Z" fill="${fur}"/>
+    <ellipse cx="50" cy="90" rx="6.5" ry="3.5" fill="${fd}" opacity=".16"/>
+    <ellipse cx="26" cy="24" rx="10" ry="14" fill="${fur}"/>
+    <ellipse cx="26" cy="25" rx="5.5" ry="9" fill="${ie}"/>
+    <ellipse cx="74" cy="24" rx="10" ry="14" fill="${fur}"/>
+    <ellipse cx="74" cy="25" rx="5.5" ry="9" fill="${ie}"/>
+    <ellipse cx="50" cy="49" rx="27" ry="26" fill="${fur}"/>
+    <ellipse cx="43" cy="36" rx="11" ry="7" fill="${fl}" opacity=".28" transform="rotate(-22 43 36)"/>
+    <circle cx="40" cy="46" r="7" fill="white"/>
+    <circle cx="60" cy="46" r="7" fill="white"/>
+    <circle cx="41" cy="46" r="5" fill="#1c1c1e"/>
+    <circle cx="61" cy="46" r="5" fill="#1c1c1e"/>
+    <circle cx="39" cy="44" r="1.8" fill="white"/>
+    <circle cx="59" cy="44" r="1.8" fill="white"/>
+    <ellipse cx="50" cy="60" rx="10" ry="8" fill="${mz}"/>
+    <ellipse cx="46.5" cy="58.5" rx="3" ry="2.2" fill="#7A4030"/>
+    <ellipse cx="53.5" cy="58.5" rx="3" ry="2.2" fill="#7A4030"/>
+    ${mth}
+    <ellipse cx="27" cy="56" rx="6" ry="3.5" fill="${bl}" opacity=".5"/>
+    <ellipse cx="73" cy="56" rx="6" ry="3.5" fill="${bl}" opacity=".5"/>
+    ${sp}${outs[skin]||''}
+  </svg>`;
+}
+
+function mochi(mood,sz){
+  sz=sz||80;const cx=sz/2,cy=sz/2,r=sz*.42;
+  const ew=sz*.065;
+  const mth=mood==='happy'
+    ?`<path d="M${cx-sz*.12} ${cy+sz*.12} Q${cx} ${cy+sz*.2} ${cx+sz*.12} ${cy+sz*.12}" stroke="#7a4a2a" stroke-width="${sz*.02}" fill="none" stroke-linecap="round"/>`
+    :mood==='worried'
+    ?`<path d="M${cx-sz*.1} ${cy+sz*.17} Q${cx} ${cy+sz*.1} ${cx+sz*.1} ${cy+sz*.17}" stroke="#7a4a2a" stroke-width="${sz*.02}" fill="none" stroke-linecap="round"/>`
+    :`<path d="M${cx-sz*.09} ${cy+sz*.14} Q${cx} ${cy+sz*.2} ${cx+sz*.09} ${cy+sz*.14}" stroke="#7a4a2a" stroke-width="${sz*.02}" fill="none" stroke-linecap="round"/>`;
+  const sp=mood==='happy'?`<circle cx="${cx-sz*.24}" cy="${cy-sz*.26}" r="${sz*.028}" fill="#FFD700"/><circle cx="${cx+sz*.24}" cy="${cy-sz*.26}" r="${sz*.028}" fill="#FFD700"/>`:'';
+  return`<svg viewBox="0 0 ${sz} ${sz}" width="${sz}" height="${sz}" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="${cx-sz*.16}" cy="${cy-sz*.24}" rx="${sz*.11}" ry="${sz*.08}" fill="#c4956a"/>
+    <ellipse cx="${cx+sz*.16}" cy="${cy-sz*.24}" rx="${sz*.11}" ry="${sz*.08}" fill="#c4956a"/>
+    <ellipse cx="${cx-sz*.16}" cy="${cy-sz*.24}" rx="${sz*.07}" ry="${sz*.055}" fill="#e8b4a0"/>
+    <ellipse cx="${cx+sz*.16}" cy="${cy-sz*.24}" rx="${sz*.07}" ry="${sz*.055}" fill="#e8b4a0"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#c4956a"/>
+    <circle cx="${cx-sz*.12}" cy="${cy-sz*.07}" r="${ew+sz*.015}" fill="white"/>
+    <circle cx="${cx+sz*.12}" cy="${cy-sz*.07}" r="${ew+sz*.015}" fill="white"/>
+    <circle cx="${cx-sz*.11}" cy="${cy-sz*.07}" r="${ew}" fill="#1c1c1e"/>
+    <circle cx="${cx+sz*.13}" cy="${cy-sz*.07}" r="${ew}" fill="#1c1c1e"/>
+    <circle cx="${cx-sz*.13}" cy="${cy-sz*.1}" r="${sz*.02}" fill="white"/>
+    <circle cx="${cx+sz*.11}" cy="${cy-sz*.1}" r="${sz*.02}" fill="white"/>
+    <ellipse cx="${cx}" cy="${cy+sz*.06}" rx="${sz*.09}" ry="${sz*.07}" fill="#9a6244"/>
+    <ellipse cx="${cx-sz*.04}" cy="${cy+sz*.05}" rx="${sz*.028}" ry="${sz*.022}" fill="#7A4030"/>
+    <ellipse cx="${cx+sz*.04}" cy="${cy+sz*.05}" rx="${sz*.028}" ry="${sz*.022}" fill="#7A4030"/>
+    <ellipse cx="${cx-sz*.18}" cy="${cy+sz*.09}" rx="${sz*.07}" ry="${sz*.04}" fill="#F4A0A0" opacity=".5"/>
+    <ellipse cx="${cx+sz*.18}" cy="${cy+sz*.09}" rx="${sz*.07}" ry="${sz*.04}" fill="#F4A0A0" opacity=".5"/>
+    ${mth}${sp}
+  </svg>`;
+}
+
+async function saveAll(){try{await window.storage.set('cn-notes',JSON.stringify({notes:S.notes,nextId:S.nextId}))}catch(e){}}
+async function savePref(){try{await window.storage.set('cn-dark',String(S.dark));await window.storage.set('cn-skin',S.skin)}catch(e){}}
+async function markSeen(){try{await window.storage.set('cn-seen','1')}catch(e){}}
+
+async function init(){
+  $('ld-m').innerHTML=mochi('normal',72);
+  try{const r=await window.storage.get('cn-dark');if(r){S.dark=r.value==='true';setDark(S.dark)}}catch(e){}
+  try{const r=await window.storage.get('cn-skin');if(r)S.skin=r.value}catch(e){}
+  try{const r=await window.storage.get('cn-notes');if(r){const d=JSON.parse(r.value);S.notes=d.notes||[];S.nextId=d.nextId||1;}else{S.notes=DN.map(n=>({...n}));S.nextId=3;}}catch(e){S.notes=DN.map(n=>({...n}));S.nextId=3;}
+  let seen=false;try{await window.storage.get('cn-seen');seen=true}catch(e){}
+  $('ld').style.display='none';
+  if(seen){goMain();}else{$('mochi-mode').innerHTML=mochiUpper(S.skin,92,'normal');goTo('s-mode');}
+}
+
+function selMode(m){S.dark=m==='dark';setDark(S.dark);$('mc-l').classList.toggle('on',m==='light');$('mc-d').classList.toggle('on',m==='dark')}
+function startOnboard(){S.obStep=0;renderOb();goTo('s-onboard');savePref();markSeen()}
+function renderOb(){
+  const sl=OB[S.obStep],mood=S.obStep===2?'happy':'normal';
+  $('ob-c').innerHTML=`<div style="display:flex;justify-content:center">${mochiUpper(S.skin,96,mood)}</div><div><h1 style="margin-bottom:12px;color:var(--text)">${sl.title}</h1><p style="font-size:16px;color:var(--text2)">${sl.text}</p></div>`;
+  $('ob-dots').innerHTML=OB.map((_,i)=>`<div class="pd${i===S.obStep?' on':''}"></div>`).join('');
+  $('ob-btn').textContent=S.obStep===OB.length-1?"Let's start!":"Next";
+}
+function nextOb(){if(S.obStep<OB.length-1){S.obStep++;renderOb();}else{goMain();setTimeout(()=>showToast('normal',"Hey, it's Mochi!",'Ready for your first note?'),1200)}}
+
+function goMain(){goTo('s-main');renderMain();$('mfab').innerHTML=mochiUpper(S.skin,42,'normal')}
+function renderMain(){renderCats();renderNotes()}
+function renderCats(){$('cats').innerHTML=S.cats.map(c=>`<button class="cp${c===S.activeCat?' on':''}" onclick="setCat('${c}')">${c}</button>`).join('')}
+function setCat(c){S.activeCat=c;renderCats();renderNotes()}
+function doSearch(v){S.search=v.toLowerCase();renderNotes()}
+
+function ncBg(color){
+  if(!color||color==='#FFFFFF')return'var(--bg2)';
+  if(S.dark){const r=parseInt(color.slice(1,3),16),g=parseInt(color.slice(3,5),16),b=parseInt(color.slice(5,7),16);return`rgb(${Math.max(0,r-70)},${Math.max(0,g-70)},${Math.max(0,b-70)})`}
+  return color;
+}
+
+function renderNotes(){
+  let ns=[...S.notes];
+  if(S.activeCat!=='All')ns=ns.filter(n=>n.cat===S.activeCat);
+  if(S.search)ns=ns.filter(n=>(n.title+n.body).toLowerCase().includes(S.search));
+  ns.sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
+  if(!ns.length){
+    $('notes-list').innerHTML=`<div style="text-align:center;padding:60px 0"><div style="display:flex;justify-content:center">${mochiUpper(S.skin,64,'worried')}</div><div style="font-size:15px;color:var(--text3);margin-top:14px">No notes here</div><div style="font-size:13px;color:var(--text3);margin-top:4px">Tap + to add one</div></div>`;
+    return;
+  }
+  $('notes-list').innerHTML=ns.map(n=>`<div class="nc" data-id="${n.id}" style="background:${ncBg(n.color)}" onclick="openEditor(${n.id})">
+    ${n.pinned?`<div style="position:absolute;top:6px;right:8px;width:34px;overflow:hidden">${mochiUpper(S.skin,34,'normal')}</div>`:''}
+    <div class="nt" style="padding-right:${n.pinned?'40px':'0'}">${n.title||'Untitled'}</div>
+    <div class="nb">${(n.body||'').replace(/\n/g,' ')}</div>
+    <div class="nm"><span class="nbg">${n.cat}</span><span>${fmt(n.created)}</span>${n.reminder?`<span>&#9200; ${fdt(n.reminder)}</span>`:''}${n.atts&&n.atts.length?`<span>&#128206; ${n.atts.length}</span>`:''}</div>
+  </div>`).join('');
+  setTimeout(()=>{
+    document.querySelectorAll('.nc').forEach(card=>{
+      const nid=parseInt(card.dataset.id);let sx=0;
+      card.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+      card.addEventListener('touchmove',e=>{const dx=e.touches[0].clientX-sx;if(dx<-15){card.style.transform=`translateX(${Math.max(dx,-72)}px)`;card.style.transition='none'}},{passive:true});
+      card.addEventListener('touchend',e=>{card.style.transition='transform .2s';if(e.changedTouches[0].clientX-sx<-50){card.style.transform='translateX(-110%)';setTimeout(()=>{S.notes=S.notes.filter(x=>x.id!==nid);saveAll();renderNotes()},200);}else card.style.transform='';});
+    });
+  },60);
+}
+
+function openEditor(id){
+  S._ta=[];
+  if(id){const n=S.notes.find(x=>x.id===id);S.editing=id;S.editPin=n.pinned;S.editColor=n.color||'#FFFFFF';$('etitle').value=n.title||'';$('ebody').value=n.body||'';$('ecat').value=n.cat;$('erem').value=n.reminder?new Date(n.reminder).toISOString().slice(0,16):'';renderAtts(n.atts||[]);}
+  else{S.editing=null;S.editPin=false;S.editColor='#FFFFFF';$('etitle').value='';$('ebody').value='';$('ecat').value='Personal';$('erem').value='';renderAtts([]);}
+  $('epin').style.opacity=S.editPin?'1':'0.3';
+  $('e-mochi').innerHTML=mochiUpper(S.skin,44,'normal');
+  renderCdots();
+  $('s-editor').style.background=S.editColor==='#FFFFFF'?'var(--bg)':ncBg(S.editColor);
+  goTo('s-editor');
+  setTimeout(()=>$('ebody').focus(),250);
+}
+function renderCdots(){$('cdots').innerHTML=COLORS.map(c=>`<div class="cd${c.v===S.editColor?' on':''}" style="background:${c.v==='#FFFFFF'?'var(--bg3)':c.v}" onclick="selColor('${c.v}')"></div>`).join('')}
+function selColor(v){S.editColor=v;renderCdots();$('s-editor').style.background=v==='#FFFFFF'?'var(--bg)':ncBg(v)}
+function togglePin(){S.editPin=!S.editPin;$('epin').style.opacity=S.editPin?'1':'0.3'}
+function saveAndBack(){
+  const title=$('etitle').value.trim(),body=$('ebody').value.trim();
+  if(!title&&!body){$('s-editor').style.background='';goMain();return}
+  const rem=$('erem').value;
+  if(S.editing){const n=S.notes.find(x=>x.id===S.editing);n.title=title||'Untitled';n.body=body;n.cat=$('ecat').value;n.pinned=S.editPin;n.color=S.editColor;n.reminder=rem?new Date(rem).toISOString():null;}
+  else{S.notes.unshift({id:S.nextId++,title:title||'Untitled',body,color:S.editColor,cat:$('ecat').value,pinned:S.editPin,reminder:rem?new Date(rem).toISOString():null,atts:S._ta,created:new Date().toISOString()});}
+  if(rem){const dl=new Date(rem)-new Date();if(dl>0&&dl<86400000)setTimeout(()=>showToast('worried',"Don't forget!",title||'A note'),dl);}
+  $('s-editor').style.background='';saveAll();goMain();
+}
+function renderAtts(a){$('att-list').innerHTML=(a||[]).map((x,i)=>`<div class="ap">${x.type==='image'?`<img src="${x.data}" style="width:34px;height:34px;border-radius:6px;object-fit:cover">`:'<span style="font-size:18px">&#128196;</span>'}<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.name}</span><button onclick="rmAtt(${i})" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px;padding:0">&#215;</button></div>`).join('')}
+function addAtt(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const a={name:f.name,type:f.type.startsWith('image/')?'image':'doc',data:e.target.result};if(S.editing){const n=S.notes.find(x=>x.id===S.editing);if(!n.atts)n.atts=[];n.atts.push(a);renderAtts(n.atts);}else{S._ta.push(a);renderAtts(S._ta);}};r.readAsDataURL(f);inp.value='';}
+function rmAtt(i){if(S.editing){const n=S.notes.find(x=>x.id===S.editing);n.atts.splice(i,1);renderAtts(n.atts);}else{S._ta.splice(i,1);renderAtts(S._ta);}}
+
+function goSettings(){goTo('s-settings');renderSettings()}
+function renderSettings(){
+  const fonts={'System':'-apple-system,sans-serif','Serif':'Georgia,serif','Mono':"'SF Mono',monospace"};
+  $('settings-body').innerHTML=`
+    <div style="display:flex;justify-content:center;margin:16px 0 22px">${mochiUpper(S.skin,72,'normal')}</div>
+    <div style="margin-bottom:20px"><div class="slbl">Appearance</div>
+      <div class="srow" style="border-radius:12px" onclick="togDark()"><span class="srt">Dark mode</span><button class="tog${S.dark?' on':''}" id="dtog" onclick="togDark();event.stopPropagation()"></button></div>
+    </div>
+    <div style="margin-bottom:20px"><div class="slbl">Font</div>
+      ${Object.keys(fonts).map(f=>`<div class="srow" onclick="setFont('${f}')"><span class="srt" style="font-family:${fonts[f]}">${f}</span>${f===(S.font||'System')?'<span style="color:var(--accent);font-size:16px">&#10003;</span>':''}</div>`).join('')}
+    </div>
+    <div style="margin-bottom:20px"><div class="slbl">Security</div>
+      <div class="srow" style="border-radius:12px"><span class="srt">App PIN lock</span><span class="srs">Coming soon</span></div>
+    </div>
+    <div style="margin-bottom:20px"><div class="slbl">Export</div>
+      <div class="srow" style="border-radius:12px"><span class="srt">Export to PDF / Word</span><span class="srs">Coming soon</span></div>
+    </div>
+    <div style="margin-bottom:24px"><div class="slbl">About</div>
+      <div class="srow"><span class="srt">Version</span><span class="srs">1.0.0</span></div>
+      <div class="srow"><span class="srt">Made with</span><span class="srs">Mochi's love</span></div>
+    </div>
+    <button class="supb" id="supbtn" onclick="openSupport()">
+      <div id="ssm" style="flex-shrink:0">${mochiUpper(S.skin,46,'normal')}</div>
+      <div style="flex:1;text-align:left"><div style="font-size:15px;font-weight:500;color:var(--text)">Support the Capybara</div><div style="font-size:13px;color:var(--text2);margin-top:2px">Help keep Mochi fed</div></div>
+      <span style="color:var(--text3);font-size:22px">&#8250;</span>
+    </button>`;
+  const sb=$('supbtn');if(sb){sb.addEventListener('mouseenter',()=>{$('ssm').innerHTML=mochiUpper(S.skin,46,'happy')});sb.addEventListener('mouseleave',()=>{$('ssm').innerHTML=mochiUpper(S.skin,46,'normal')});}
+}
+function togDark(){S.dark=!S.dark;setDark(S.dark);savePref();renderSettings()}
+function setFont(f){S.font=f;document.body.style.fontFamily={System:'-apple-system,sans-serif',Serif:'Georgia,serif',Mono:"'SF Mono',monospace"}[f]||'';savePref();renderSettings()}
+
+function openSkins(){renderSGrid();$('skin-ovl').classList.add('on')}
+function closeSkins(e){if(!e||e.target===$('skin-ovl'))$('skin-ovl').classList.remove('on')}
+function renderSGrid(){$('sgrid').innerHTML=SKINS.map(sk=>`<div class="scard${sk.id===S.skin?' on':''}" onclick="selSkin('${sk.id}')"><div style="display:flex;justify-content:center">${mochiUpper(sk.id,58,'normal')}</div><div class="snm">${sk.name}</div><div class="sds">${sk.desc}</div></div>`).join('')}
+function selSkin(id){S.skin=id;savePref();renderSGrid();$('mfab').innerHTML=mochiUpper(S.skin,42,'normal');closeSkins();showToast('happy','Outfit on!',SKINS.find(s=>s.id===id).name);}
+
+function openSupport(){$('sup-m').innerHTML=mochiUpper(S.skin,90,'normal');$('sup-ovl').classList.add('on');setTimeout(()=>{$('sup-m').innerHTML=mochiUpper(S.skin,90,'happy')},400);}
+function closeSup(e){if(!e||e.target===$('sup-ovl'))$('sup-ovl').classList.remove('on')}
+function showToast(mood,title,msg){$('t-m').innerHTML=mochi(mood,36);$('t-title').textContent=title;$('t-msg').textContent=msg;$('toast').classList.add('show');clearTimeout(S._tt);S._tt=setTimeout(hideToast,6000);}
+function hideToast(){$('toast').classList.remove('show')}
+
+init();
+</script>
