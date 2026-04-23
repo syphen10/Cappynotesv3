@@ -1,10 +1,10 @@
 {
   "name": "CappyNotes",
   "short_name": "CappyNotes",
-  "id": "/Cappynotesv3/",
+  "id": "/",
   "description": "Your chill capybara note-taking app",
-  "start_url": "/Cappynotesv3/",
-  "scope": "/Cappynotesv3/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "browser"],
   "orientation": "portrait",
