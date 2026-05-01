@@ -1,1 +1,8 @@
-
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.syphen10.twa",
+        "sha256_cert_fingerprints": ["7A:96:8D:F5:33:14:40:83:8A:72:CE:1B:9C:01:F6:A5:76:7D:2E:9E:E4:ED:F4:1A:60:D9:DC:2F:91:77:E1:E6"]
+      }
+    }]
